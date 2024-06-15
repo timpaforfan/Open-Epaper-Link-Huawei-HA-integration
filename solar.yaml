@@ -1,0 +1,97 @@
+alias: Solpaneler
+description: ""
+trigger:
+  - platform: time_pattern
+    minutes: /5
+action:
+  - service: open_epaper_link.drawcustom
+    data:
+      background: white
+      ttl: 300
+      payload:
+        - type: text
+          value: Dagens högsta
+          font: ppb.ttf
+          x: 5
+          "y": 10
+          size: 16
+          color: black
+        - type: text
+          value: " {{states('sensor.inverter_day_active_power_peak') | float /1000}} kW"
+          font: ppb.ttf
+          x: 160
+          "y": 10
+          size: 16
+          color: red
+        - type: text
+          value: Solel idag
+          font: ppb.ttf
+          x: 5
+          "y": 28
+          size: 16
+          color: black
+        - type: text
+          value: " {{states('sensor.inverter_daily_yield')}} kWh"
+          font: ppb.ttf
+          x: 160
+          "y": 28
+          size: 16
+          color: red
+        - type: text
+          value: Just nu
+          font: ppb.ttf
+          x: 5
+          "y": 46
+          size: 16
+          color: black
+        - type: text
+          value: " {{states('sensor.inverter_active_power') | float /1000}} kW"
+          font: ppb.ttf
+          x: 160
+          "y": 46
+          size: 16
+          color: red
+        - type: text
+          value: Tot konsumtion
+          font: ppb.ttf
+          x: 5
+          "y": 70
+          size: 16
+          color: black
+        - type: text
+          value: " {{ (states('sensor.power_meter_consumption') | float /1000)| round(2)}} MWh"
+          font: ppb.ttf
+          x: 160
+          "y": 70
+          size: 16
+          color: black
+        - type: text
+          value: Total export
+          font: ppb.ttf
+          x: 5
+          "y": 88
+          size: 16
+          color: black
+        - type: text
+          value: " {{ (states('sensor.power_meter_exported') | float /1000)| round(2)}} MWh"
+          font: ppb.ttf
+          x: 160
+          "y": 88
+          size: 16
+          color: black
+        - type: text
+          value: Total solel
+          font: ppb.ttf
+          x: 5
+          "y": 106
+          size: 16
+          color: black
+        - type: text
+          value: " {{ (states('sensor.inverter_total_yield') | float /1000)| round(2)}} MWh"
+          font: ppb.ttf
+          x: 160
+          "y": 106
+          size: 16
+          color: red
+    target:
+      entity_id: open_epaper_link.0000021EEB2E3B1D
